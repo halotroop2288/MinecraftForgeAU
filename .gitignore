@@ -1,0 +1,21 @@
+# Don't push cache or editor configs
+.gradle/
+.idea/
+.consulo/
+.vs/
+.vscode/
+
+# Don't push binaries or game data.
+build/
+run/
+*.jar
+
+# Use your own Gradle installation.
+gradle/wrapper/
+gradlew
+
+*.iml
+
+# Do your scripting with Gradle.
+*.bat
+
