@@ -25,7 +25,23 @@ public class MinecraftForge {
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
+	public static void populateBiome(World world, BiomeGenBase biome, int chunkX, int chunkZ) {
+		biomePopulators.forEach(populator -> populator.populate(world, biome, chunkX, chunkZ));
+	}
+
+	/**
+	 * @author Space Toad
+	 * @since 1.0.0
+	 */
 	public static void registerCustomBucketHandler(IBucketHandler bucketHandler) {
 		bucketHandlers.add(bucketHandler);
+	}
+
+	/**
+	 * @author Space Toad
+	 * @since 1.0.0
+	 */
+	public static void registerBiomePopulate(IBiomePopulator biomePopulator) {
+		biomePopulators.add(biomePopulator);
 	}
 }

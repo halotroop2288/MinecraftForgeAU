@@ -2,6 +2,7 @@
 	"package": "net.minecraftforge.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
+		"ChunkProviderGenerateMixin",
 		"ItemBucketMixin"
 	]
 }
