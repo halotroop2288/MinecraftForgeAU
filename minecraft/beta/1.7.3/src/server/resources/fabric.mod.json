@@ -1,0 +1,19 @@
+{
+	"schemaVersion": 1,
+	"id": "forge",
+	"name": "Minecraft Forge",
+	"version": "${version}",
+	"environment": "server",
+	"mixins": [
+		"forge.mixins.json"
+	],
+	"depends": {
+		"minecraft": "~1.0.0-beta.7.3"
+	},
+	"authors": [
+		"halotroop2288"
+	],
+	"contributors": [
+		"SpaceToad"
+	]
+}
