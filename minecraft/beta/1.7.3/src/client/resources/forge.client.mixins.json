@@ -1,0 +1,11 @@
+{
+	"package": "net.minecraftforge.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"required": true,
+	"client": [
+		"ItemRendererMixin",
+		"RenderBlocksMixin",
+		"RenderItemMixin",
+		"WorldRendererMixin"
+	]
+}
