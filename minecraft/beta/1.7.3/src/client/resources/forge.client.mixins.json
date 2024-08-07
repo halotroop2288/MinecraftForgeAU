@@ -3,6 +3,7 @@
 	"compatibilityLevel": "JAVA_8",
 	"required": true,
 	"client": [
+		"EffectRendererMixin",
 		"ItemRendererMixin",
 		"MinecraftMixin",
 		"RenderBlocksMixin",
