@@ -15,7 +15,11 @@
 		"halotroop2288"
 	],
 	"contributors": [
-		"SpaceToad",
-		"FlowerChild"
-	]
+		"SpaceToad"
+	],
+	"custom": {
+		"loom:injected_interfaces": {
+			"net/minecraft/src/EffectRenderer": ["net/minecraftforge/injection/ForgeEffectRenderer"]
+		}
+	}
 }
