@@ -4,6 +4,7 @@
 	"required": true,
 	"client": [
 		"ItemRendererMixin",
+		"MinecraftMixin",
 		"RenderBlocksMixin",
 		"RenderItemMixin",
 		"WorldRendererMixin"

@@ -12,6 +12,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 /**
  * @author Space Toad
+ * @author Flowerchild
  * @since 1.0.0
  */
 @Environment(EnvType.CLIENT)
@@ -68,5 +69,14 @@ public class MinecraftForgeClient {
 			String texturePath = provider.getTextureFile();
 			glBindTexture(GL_TEXTURE_2D, Minecraft.theMinecraft.renderEngine.getTexture(texturePath));
 		}
+	}
+
+	/**
+	 * Called during {@link Minecraft#startGame()} after singletons are created.
+	 *
+	 * @author FlowerChild
+	 * @since 1.0.0
+	 */
+	public static void onGameStart() {
 	}
 }
