@@ -1,3 +1,6 @@
+/*
+ * This software is provided under the terms of the Minecraft Forge Public License v1.1.
+ */
 package net.minecraftforge.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
@@ -22,10 +25,12 @@ public abstract class ItemBucketMixin {
 	 * @author halotroop2288
 	 * @reason Implements {@link IBucketHandler}
 	 */
-	@Inject(method = "onItemRightClick", cancellable = true, at = @At(value = "INVOKE",
-			ordinal = 0, target = "Lnet/minecraft/src/World;getBlockMaterial(III)Lnet/minecraft/src/Material;"))
-	private void forge$customBucket(ItemStack stack, World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> cir,
-									@Local(ordinal = 0) int x, @Local(ordinal = 1) int y, @Local(ordinal = 2) int z) {
+	@Inject(method = "onItemRightClick", cancellable = true, at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/src/World;getBlockMaterial(III)Lnet/minecraft/src/Material;"))
+	private void forge$customBucket(ItemStack stack, World world, EntityPlayer player,
+									CallbackInfoReturnable<ItemStack> cir,
+									@Local(ordinal = 0) int x,
+									@Local(ordinal = 1) int y,
+									@Local(ordinal = 2) int z) {
 		ItemStack customBucket = MinecraftForge.fillCustomBucket(world, x, y, z);
 		if (customBucket != null) cir.setReturnValue(customBucket);
 	}
