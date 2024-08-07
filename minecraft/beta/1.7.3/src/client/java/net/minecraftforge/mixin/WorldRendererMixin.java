@@ -1,3 +1,6 @@
+/*
+ * This software is provided under the terms of the Minecraft Forge Public License v1.1.
+ */
 package net.minecraftforge.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
