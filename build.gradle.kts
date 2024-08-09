@@ -1,7 +1,7 @@
 plugins {
     `kotlin-dsl`
-    id("xyz.wagyourtail.unimined") // version 1.3.5
-    id("com.diffplug.spotless") version "7.0.0.BETA1"
+    alias(libs.plugins.unimined)
+    alias(libs.plugins.spotless)
 }
 
 subprojects {
