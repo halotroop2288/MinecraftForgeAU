@@ -4,6 +4,8 @@
 	"required": true,
 	"mixins": [
 		"ChunkProviderGenerateMixin",
-		"ItemBucketMixin"
+		"ItemBucketMixin",
+		"ItemPickaxeMixin",
+		"ItemToolMixin"
 	]
 }
