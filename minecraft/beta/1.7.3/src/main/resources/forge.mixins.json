@@ -3,8 +3,11 @@
 	"compatibilityLevel": "JAVA_8",
 	"required": true,
 	"mixins": [
+		"BlockRedstoneWireMixin",
+		"ChunkMixin",
 		"ChunkProviderGenerateMixin",
 		"ItemBucketMixin",
+		"ItemMixin",
 		"ItemPickaxeMixin",
 		"ItemToolMixin"
 	]

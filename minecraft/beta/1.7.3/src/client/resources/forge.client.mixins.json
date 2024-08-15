@@ -6,6 +6,7 @@
 		"EffectRendererMixin",
 		"ItemRendererMixin",
 		"MinecraftMixin",
+		"PlayerControllerMixin",
 		"RenderBlocksMixin",
 		"RenderItemMixin",
 		"WorldRendererMixin"
