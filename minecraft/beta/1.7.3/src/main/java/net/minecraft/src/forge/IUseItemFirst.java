@@ -6,7 +6,7 @@ package net.minecraft.src.forge;
 import net.minecraft.src.*;
 
 /**
- * This interface has to be implemented by an {@link Item},
+ * This interface is to be implemented by an {@link Item},
  * to be invoked at the beginning of {@link Item#onItemUse(ItemStack, EntityPlayer, World, int, int, int, int)}.
  *
  * @author Eloraam
@@ -14,8 +14,9 @@ import net.minecraft.src.*;
  */
 public interface IUseItemFirst {
 	/**
+	 * This is called when the item is used, before the block is activated.<br>
 	 * When this returns {@code true}, {@link Item#onItemUse(ItemStack, EntityPlayer, World, int, int, int, int)}
-	 * will immediately return true as	 well.
+	 * will immediately return true as well.
 	 *
 	 * @param stack  the stack containing this item
 	 * @param player the player using the item
