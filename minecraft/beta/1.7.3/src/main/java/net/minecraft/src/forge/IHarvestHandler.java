@@ -14,9 +14,16 @@ import net.minecraft.src.*;
 @FunctionalInterface
 public interface IHarvestHandler {
 	/**
+	 * <p>
+	 * This is typically used to add e.g. blocks only extracted by diamond pickaxe.
+	 * Other rules may activate the harvesting outside of this handler.
+	 * </p>
+	 *
 	 * @param tool  the tool used to harvest the block
 	 * @param block the block to be harvested
+	 * @return {@code true} if the tool in parameter is known to be able to harvest the given block.
 	 * @author Space Toad
+	 * @see MinecraftForge#registerHarvestHandler(IHarvestHandler)
 	 * @since 1.0.0
 	 */
 	boolean canHarvestBlock(ItemTool tool, Block block);

@@ -7,8 +7,8 @@ import net.minecraft.src.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * This interface has to be implemented by a {@link Block},
- * for deciding whether it can replace specific blocks when placed.
+ * This interface is to be implemented by a {@link Block},
+ * for allowing a block to control how it can be replaced.
  *
  * @author Eloraam
  * @since 1.0.0
@@ -19,7 +19,7 @@ public interface IOverrideReplace {
 	 * @param x       the x position of the block to replace
 	 * @param y       the y position of the block to replace
 	 * @param z       the z position of the block to replace
-	 * @param blockID the ID of the block to replace
+	 * @param blockID the ID of the block intended to replace the one at the given position
 	 * @return whether this block is able to replace the block represented by the given ID
 	 * @author Eloraam
 	 * @since 1.0.0
