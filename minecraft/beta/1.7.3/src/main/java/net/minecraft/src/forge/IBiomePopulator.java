@@ -14,7 +14,12 @@ import net.minecraft.src.*;
 @FunctionalInterface
 public interface IBiomePopulator {
 	/**
-	 * Implements custom generation for the given chunk.
+	 * <p>Implements custom generation for the given chunk.</p>
+	 *
+	 * <p>
+	 * This is called for each chunk, after the rest of the generation,
+	 * and allows contributors to add additional blocks in the world.
+	 * </p>
 	 *
 	 * @param world  the world to act on
 	 * @param biome  the biome at the given coordinates

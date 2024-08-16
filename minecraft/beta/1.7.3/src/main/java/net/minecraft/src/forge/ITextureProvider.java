@@ -8,7 +8,7 @@ import net.minecraft.src.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * This interface has to be implemented by a {@link Block} or {@link Item},
+ * This interface is to be implemented by a {@link Block} or {@link Item},
  * and provide custom texture capabilities.
  *
  * @author Space Toad

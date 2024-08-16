@@ -3,10 +3,12 @@
  */
 package net.minecraft.src.forge;
 
-import net.minecraft.src.IBlockAccess;
+import net.minecraft.src.*;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Event handler for connecting redstone wire
+ * This interface is to be implemented by {@link Block} classes.
+ * It will override standard algorithms controlling connection between two blocks by redstone
  *
  * @author Eloraam
  * @since 1.0.0
@@ -19,9 +21,9 @@ public interface IConnectRedstone {
 	 * @param y         the y position of this block
 	 * @param z         the z position of this block
 	 * @param direction the direction from which the redstone wire is connecting
-	 * @return whether the wire should connect directly to this block from the given direction
+	 * @return whether this block can provide redstone power to the given direction
 	 * @author Eloraam
 	 * @since 1.0.0
 	 */
-	boolean canConnectRedstone(IBlockAccess world, int x, int y, int z, int direction);
+	boolean canConnectRedstone(@NotNull IBlockAccess world, int x, int y, int z, int direction);
 }
