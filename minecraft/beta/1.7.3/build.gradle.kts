@@ -11,6 +11,10 @@ val commonAW = File(projectDir, "src/main/resources/forge.common.accesswidener")
 val clientAW = File(projectDir, "src/client/resources/forge.client.accesswidener")
 val serverAW = File(projectDir, "src/server/resources/forge.server.accesswidener")
 
+tasks.build.configure {
+	dependsOn("remapClientJar", "remapServerJar")
+}
+
 val fabricConfig: LegacyFabricPatcher.() -> Unit = {
 	loader(libs.versions.fabric.get())
 	customIntermediaries = true
@@ -18,20 +22,18 @@ val fabricConfig: LegacyFabricPatcher.() -> Unit = {
 }
 
 unimined.minecraft {
-    version("b1.7.3")
-    side("server")
-    mappings {
+	version("b1.7.3")
+	side("server")
+	mappings {
 		babricIntermediary()
-        retroMCP("b1.7")
-    }
-    legacyFabric {
-        loader("0.16.0")
-        prodNamespace("official")
-        customIntermediaries = true
-
-        accessWidener(File(projectDir, "src/client/resources/forge.client.accesswidener"))
-    }
-    runs.off = true
+		retroMCP("b1.7")
+	}
+	legacyFabric {
+		fabricConfig.invoke(this)
+		accessWidener(commonAW)
+	}
+	runs.off = true
+	defaultRemapJar = false
 }
 
 val sidedMinecraftConfig: MinecraftConfig.(Boolean) -> Unit = { client ->
@@ -40,7 +42,8 @@ val sidedMinecraftConfig: MinecraftConfig.(Boolean) -> Unit = { client ->
 	legacyFabric {
 		fabricConfig.invoke(this@legacyFabric)
 		accessWidener(
-			mergeAws(File(sourceSet.output.resourcesDir, "forge.accesswidener"),
+			mergeAws(
+				File(sourceSet.output.resourcesDir, "forge.accesswidener"),
 				listOf(
 					commonAW, if (client) clientAW else serverAW
 				)
