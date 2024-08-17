@@ -6,6 +6,7 @@
 		"BlockRedstoneWireMixin",
 		"ChunkMixin",
 		"ChunkProviderGenerateMixin",
+		"EntityPlayerMixin",
 		"ExplosionMixin",
 		"ItemBucketMixin",
 		"ItemMixin",
