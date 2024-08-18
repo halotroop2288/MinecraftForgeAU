@@ -6,6 +6,7 @@ package net.minecraft.src.forge;
 import net.fabricmc.api.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.*;
+import org.jetbrains.annotations.ApiStatus;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -17,14 +18,20 @@ import static org.lwjgl.opengl.GL11.*;
  */
 @Environment(EnvType.CLIENT)
 public class MinecraftForgeClient {
+	private MinecraftForgeClient() {
+	}
+
 	/**
 	 * Re-initializes the tessellator and binds a custom texture before rendering a block
 	 * that implements {@link ITextureProvider}.
 	 *
+	 * @param block    the block being rendered
+	 * @param renderer the block renderer instance
 	 * @author Space Toad
 	 * @author halotroop2288
 	 * @since 1.0.0
 	 */
+	@ApiStatus.Internal
 	public static void beforeBlockRender(Block block, RenderBlocks renderer) {
 		if (block instanceof ITextureProvider && renderer.overrideBlockTexture == -1) {
 			Tessellator tessellator = Tessellator.instance;
@@ -40,10 +47,13 @@ public class MinecraftForgeClient {
 	 * Re-initializes the tessellator and binds {@code terrain.png} after rendering a block
 	 * to avoid bugs caused by binding a custom texture from {@link ITextureProvider}.
 	 *
+	 * @param block    the block being rendered
+	 * @param renderer the block renderer instance
 	 * @author Space Toad
 	 * @author halotroop2288
 	 * @since 1.0.0
 	 */
+	@ApiStatus.Internal
 	public static void afterBlockRender(Block block, RenderBlocks renderer) {
 		if (block instanceof ITextureProvider && renderer.overrideBlockTexture == -1) {
 			Tessellator tessellator = Tessellator.instance;
