@@ -15,12 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemPickaxe.class)
 public abstract class ItemPickaxeMixin {
 	/**
-	 * @param block the block to harvest
 	 * @author halotroop2288
 	 * @reason Implements {@link IHarvestHandler}
 	 */
 	@Inject(method = "canHarvestBlock", cancellable = true, at = @At(value = "FIELD", ordinal = 0,
-			target = "Lnet/minecraft/src/Block;blockMaterial:Lnet/minecraft/src/Material;"))
+		target = "Lnet/minecraft/src/Block;blockMaterial:Lnet/minecraft/src/Material;"))
 	private void forge$canHarvestBlock_return(Block block, CallbackInfoReturnable<Boolean> cir) {
 		if (MinecraftForge.canHarvestBlock(((ItemPickaxe) (Object) this), block)) {
 			cir.setReturnValue(true);

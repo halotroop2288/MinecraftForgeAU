@@ -23,8 +23,8 @@ public abstract class ItemRendererMixin {
 	 * @reason implement {@link MinecraftForgeClient#overrideTexture(Object)}
 	 */
 	@Inject(method = "renderItem", at = @At(
-			value = "INVOKE", shift = At.Shift.AFTER,
-			target = "Lorg/lwjgl/opengl/GL11;glBindTexture(II)V"))
+		value = "INVOKE", shift = At.Shift.AFTER,
+		target = "Lorg/lwjgl/opengl/GL11;glBindTexture(II)V"))
 	private void forge$overrideTexture(EntityLiving entity, ItemStack stack, CallbackInfo ci) {
 		Item item = stack.getItem();
 		if (item instanceof ItemBlock) MinecraftForgeClient.overrideTexture(Block.blocksList[stack.itemID]);

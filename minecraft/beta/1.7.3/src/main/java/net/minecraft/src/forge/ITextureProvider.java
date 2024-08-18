@@ -26,6 +26,7 @@ public interface ITextureProvider {
 	 * If the block implements {@code getRenderType}},
 	 * it will use that terrain file to render texture instead of the default {@code /terrain.png} one.
 	 *
+	 * @return the path to the texture atlas file as described above
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */

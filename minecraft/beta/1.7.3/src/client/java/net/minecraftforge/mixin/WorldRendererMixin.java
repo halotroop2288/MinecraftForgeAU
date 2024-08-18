@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldRenderer.class)
 public abstract class WorldRendererMixin {
 	@Inject(method = "updateRenderer", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
-			target = "Lnet/minecraft/src/Block;getRenderBlockPass()I"))
+		target = "Lnet/minecraft/src/Block;getRenderBlockPass()I"))
 	private void forge$updateRenderer_getRenderBlockPass_after(CallbackInfo ci,
 															   @Local(ordinal = 0) LocalBooleanRef flag,
 															   @Local(ordinal = 6) LocalIntRef j3,
@@ -37,7 +37,7 @@ public abstract class WorldRendererMixin {
 	 * @reason implement {@link ITextureProvider}
 	 */
 	@Inject(method = "updateRenderer", at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/src/RenderBlocks;renderBlockByRenderType(Lnet/minecraft/src/Block;III)Z"))
+		target = "Lnet/minecraft/src/RenderBlocks;renderBlockByRenderType(Lnet/minecraft/src/Block;III)Z"))
 	private void forge$updateRenderer_renderBlockByRenderType(CallbackInfo ci,
 															  @Local Block block,
 															  @Local RenderBlocks renderer) {
@@ -52,7 +52,7 @@ public abstract class WorldRendererMixin {
 	 * @reason prevent bugs caused by implementing {@link ITextureProvider}
 	 */
 	@Inject(method = "updateRenderer", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
-			target = "Lnet/minecraft/src/RenderBlocks;renderBlockByRenderType(Lnet/minecraft/src/Block;III)Z"))
+		target = "Lnet/minecraft/src/RenderBlocks;renderBlockByRenderType(Lnet/minecraft/src/Block;III)Z"))
 	private void forge$updateRenderer_renderBlockByRenderType_after(CallbackInfo ci,
 																	@Local Block block,
 																	@Local RenderBlocks renderer) {

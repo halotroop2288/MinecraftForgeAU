@@ -17,10 +17,6 @@ public abstract class ChunkMixin {
 	@Shadow public World worldObj;
 
 	/**
-	 * @param x  the x position to modify
-	 * @param y  the y position to modify
-	 * @param z  the z position to modify
-	 * @param id the block id to set
 	 * @author halotroop2288
 	 * @reason implement {@link IOverrideReplace}
 	 */
@@ -37,11 +33,6 @@ public abstract class ChunkMixin {
 	}
 
 	/**
-	 * @param x  the x position to modify
-	 * @param y  the y position to modify
-	 * @param z  the z position to modify
-	 * @param id the block id to set
-	 * @param meta the metadata value to set
 	 * @author halotroop2288
 	 * @reason implement {@link IOverrideReplace}
 	 */

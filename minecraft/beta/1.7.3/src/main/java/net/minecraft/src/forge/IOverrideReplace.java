@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface IOverrideReplace {
 	/**
+	 * Checks if the given block can be replaced in the given context.
+	 *
 	 * @param world   the world to act on
 	 * @param x       the x position of the block to replace
 	 * @param y       the y position of the block to replace
@@ -27,7 +29,9 @@ public interface IOverrideReplace {
 	boolean canReplaceBlock(@NotNull World world, int x, int y, int z, int blockID);
 
 	/**
-	 * @return whether the block was successfully replaced
+	 * Checks whether the block was successfully replaced.
+	 *
+	 * @return {@code true} if the operation was a success
 	 * @author Eloraam
 	 * @since 1.0.0
 	 */

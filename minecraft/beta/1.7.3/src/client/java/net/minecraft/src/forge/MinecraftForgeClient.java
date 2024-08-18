@@ -32,7 +32,7 @@ public class MinecraftForgeClient {
 			tessellator.startDrawingQuads();
 			tessellator.setNormal(0.0F, -1F, 0.0F);
 			GL11.glBindTexture(GL_TEXTURE_2D, Minecraft.theMinecraft.renderEngine
-					.getTexture(((ITextureProvider) (block)).getTextureFile()));
+				.getTexture(((ITextureProvider) (block)).getTextureFile()));
 		}
 	}
 

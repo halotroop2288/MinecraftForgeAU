@@ -7,7 +7,7 @@ import net.minecraft.src.*;
 import org.jetbrains.annotations.ApiStatus;
 
 /**
- * Adds public methods to {@link EffectRenderer} via Fabric Interface Injectors
+ * Adds public methods to {@link EffectRenderer} via Fabric Interface Injectors.
  *
  * @author halotroop2288
  */

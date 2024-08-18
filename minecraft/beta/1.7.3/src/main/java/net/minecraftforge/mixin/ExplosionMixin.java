@@ -27,12 +27,6 @@ public abstract class ExplosionMixin {
 	@Shadow public Entity exploder;
 
 	/**
-	 * @param block the block located at the given position
-	 * @param entity the exploding entity
-	 * @param operation the original operation
-	 * @param x the block x position of the explosion
-	 * @param y the block y position of the explosion
-	 * @param z the block z position of the explosion
 	 * @author halotroop2288
 	 * @reason implement {@link ISpecialResistance}
 	 */

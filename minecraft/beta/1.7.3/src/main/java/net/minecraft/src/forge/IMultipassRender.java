@@ -14,6 +14,8 @@ import net.minecraft.src.Block;
  */
 public interface IMultipassRender {
 	/**
+	 * Checks whether the block can be rendered during the given rendering pass.
+	 *
 	 * @param pass the current render pass
 	 * @return whether the block should be rendered during this pass
 	 * @author Eloraam

@@ -3,9 +3,14 @@
  */
 package net.minecraftforge.injection;
 
-import net.minecraft.src.Block;
-import org.jetbrains.annotations.ApiStatus;
+import net.minecraft.src.*;
+import org.jetbrains.annotations.*;
 
+/**
+ * Adds public methods to {@link ItemTool} via Fabric Interface Injectors.
+ *
+ * @author halotroop2288
+ */
 @ApiStatus.Internal
 public interface ForgeItemTool {
 	/**
@@ -15,7 +20,7 @@ public interface ForgeItemTool {
 	 * @author Space Toad
 	 * @author halotroop2288
 	 */
-	default void addBlockEffectiveAgainst(Block block) {
+	default void addBlockEffectiveAgainst(@NotNull Block block) {
 		throw new RuntimeException("Not implemented.");
 	}
 }

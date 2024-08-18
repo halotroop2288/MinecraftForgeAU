@@ -30,4 +30,4 @@ fun createProject(name: String, directory: String) {
     project.name = name
 }
 
-createProject("Beta1.7.3", "minecraft/beta/1.7.3")
+createProject("MCb1.7.3", "minecraft/beta/1.7.3")
