@@ -1,34 +1,34 @@
 @file:Suppress("UnstableApiUsage")
 
-import xyz.wagyourtail.unimined.api.minecraft.MinecraftConfig
 import xyz.wagyourtail.unimined.api.minecraft.patch.fabric.LegacyFabricPatcher
+import xyz.wagyourtail.unimined.api.minecraft.task.RemapJarTask
+import xyz.wagyourtail.unimined.util.capitalized
+import xyz.wagyourtail.unimined.util.sourceSets
+import xyz.wagyourtail.unimined.util.withSourceSet
 
 val main: SourceSet by sourceSets.named("main")
 val client: SourceSet by sourceSets.creating
 val server: SourceSet by sourceSets.creating
 
-val commonAW = File(projectDir, "src/main/resources/forge.common.accesswidener")
-val clientAW = File(projectDir, "src/client/resources/forge.client.accesswidener")
-val serverAW = File(projectDir, "src/server/resources/forge.server.accesswidener")
-
-tasks.build.configure {
-	dependsOn("remapClientJar", "remapServerJar")
-}
+val commonAW = main.resources.find {
+	it.name.equals("forge.common.accesswidener")
+}!!
 
 val fabricConfig: LegacyFabricPatcher.() -> Unit = {
 	loader(libs.versions.fabric.get())
 	customIntermediaries = true
-	prodNamespace("babricIntermediary")
+	prodNamespace("official")
 }
 
 unimined.minecraft {
 	version("b1.7.3")
 	side("server")
 	mappings {
+		calamus()
 		babricIntermediary()
 		retroMCP("b1.7")
 	}
-	legacyFabric {
+	ornitheFabric {
 		fabricConfig.invoke(this)
 		accessWidener(commonAW)
 	}
@@ -36,28 +36,48 @@ unimined.minecraft {
 	defaultRemapJar = false
 }
 
-val sidedMinecraftConfig: MinecraftConfig.(Boolean) -> Unit = { client ->
+unimined.minecraft(client, server) {
 	combineWith(main)
-	side(if (client) "client" else "server")
-	legacyFabric {
-		fabricConfig.invoke(this@legacyFabric)
+	side(sourceSet.name)
+	ornitheFabric {
+		fabricConfig.invoke(this@ornitheFabric)
 		accessWidener(
 			mergeAws(
 				File(sourceSet.output.resourcesDir, "forge.accesswidener"),
 				listOf(
-					commonAW, if (client) clientAW else serverAW
+					commonAW, sourceSet.resources.find {
+						it.name.equals("forge.${sourceSet.name}.accesswidener")
+					}!!
 				)
 			)
 		)
 	}
 	runs.off = false
 	defaultRemapJar = true
+	project.afterEvaluate {
+		val jarTaskName = "jar".withSourceSet(sourceSet)
+		val defaultJarTask = tasks.named(jarTaskName).get()
+		tasks.named("remap" + jarTaskName.capitalized(), RemapJarTask::class.java).configure {
+			archiveClassifier = "${sourceSet.name}-official"
+		}
+		val baseName = "remapJarTo".withSourceSet(sourceSet)
+		remap(defaultJarTask, "${baseName}Babric") {
+			archiveClassifier = "${sourceSet.name}-babric"
+			prodNamespace("babricIntermediary")
+		}
+		remap(defaultJarTask, "${baseName}Calamus") {
+			archiveClassifier = "${sourceSet.name}-calamus"
+			prodNamespace("calamus")
+		}
+	}
 }
 
-unimined.minecraft(client) {
-	sidedMinecraftConfig.invoke(this@minecraft, true)
-}
-
-unimined.minecraft(server) {
-	sidedMinecraftConfig.invoke(this@minecraft, false)
+tasks.build.configure {
+	for (set in arrayOf(client, server)) {
+		val baseName = "remapJarTo".withSourceSet(set)
+		dependsOn(
+			"${baseName}Babric",
+			"${baseName}Calamus"
+		)
+	}
 }
