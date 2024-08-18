@@ -36,13 +36,19 @@ subprojects {
 	tasks.withType(Javadoc::class.java).configureEach {
 		isFailOnError = false
 		exclude("net/minecraftforge/mixin/**.java")
+		configurations.all {
+			if (isCanBeResolved) classpath += this@all
+		}
+		sourceSets.all {
+			source += allJava
+		}
 	}
 
 	tasks.withType(ProcessResources::class.java).configureEach {
-		inputs.property ("version", project.version)
+		inputs.property("version", project.version)
 
 		filesMatching("*.mod.json") {
-			expand ("version" to project.version)
+			expand("version" to project.version)
 		}
 	}
 }

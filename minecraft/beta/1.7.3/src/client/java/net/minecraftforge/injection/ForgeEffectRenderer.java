@@ -14,6 +14,10 @@ import org.jetbrains.annotations.ApiStatus;
 @ApiStatus.Internal
 public interface ForgeEffectRenderer {
 	/**
+	 * Adds the given effect to the {@code effectList} if it is not already present.
+	 *
+	 * @param digEffect the particle to add to the list
+	 * @param block     the block that produced the particle
 	 * @author halotroop2288
 	 * @author FlowerChild
 	 * @author Space Toad
