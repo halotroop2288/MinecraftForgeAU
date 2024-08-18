@@ -21,6 +21,31 @@ import java.util.*;
  * @since 1.0.0
  */
 public class Configuration {
+	/**
+	 * No specific category.
+	 *
+	 * @since 1.0.1
+	 * @deprecated use {@link PropertyKind#GENERAL} instead
+	 */
+	@Deprecated
+	public static final int GENERAL_PROPERTY = PropertyKind.GENERAL.ordinal();
+	/**
+	 * The Block category.
+	 *
+	 * @since 1.0.1
+	 * @deprecated use {@link PropertyKind#GENERAL} instead
+	 */
+	@Deprecated
+	public static final int BLOCK_PROPERTY = PropertyKind.BLOCK.ordinal();
+	/**
+	 * The Item category.
+	 *
+	 * @since 1.0.1
+	 * @deprecated use {@link PropertyKind#GENERAL} instead
+	 */
+	@Deprecated
+	public static final int ITEM_PROPERTY = PropertyKind.ITEM.ordinal();
+
 	private boolean[] configBlocks = null;
 
 	private final @NotNull File file;
@@ -105,6 +130,23 @@ public class Configuration {
 	 * @param defaultValue the value to use if the property doesn't already exist
 	 * @return the property associated with the given key, or null if the property couldn't be created.
 	 * @author Space Toad
+	 * @see #getOrCreateIntProperty(String, PropertyKind, int)
+	 * @since 1.0.1
+	 * @deprecated use {@link #getOrCreateIntProperty(String, PropertyKind, int)} instead
+	 */
+	public @Nullable Property getOrCreateIntProperty(@NotNull String key, int kind, int defaultValue) {
+		return getOrCreateIntProperty(key, PropertyKind.values()[kind], defaultValue);
+	}
+
+	/**
+	 * The same as {@link #getOrCreateProperty(String, PropertyKind, String)}
+	 * but for {@link Integer#TYPE int} properties rather than {@link String} properties.
+	 *
+	 * @param key          the key for which to get or create a property
+	 * @param kind         the category to look for the property in
+	 * @param defaultValue the value to use if the property doesn't already exist
+	 * @return the property associated with the given key, or null if the property couldn't be created.
+	 * @author Space Toad
 	 * @since 1.0.0
 	 */
 	public @Nullable Property getOrCreateIntProperty(@NotNull String key, @NotNull PropertyKind kind, int defaultValue) {
@@ -154,20 +196,41 @@ public class Configuration {
 	 * @return the property associated with the given key, or null if the property couldn't be created.
 	 * @author Space Toad
 	 * @since 1.0.0
+	 * @deprecated use {@link #getOrCreateProperty(String, PropertyKind, String)} instead
 	 */
-	public @Nullable Property getOrCreateProperty(@NotNull String key, @NotNull PropertyKind kind, @Nullable String defaultValue) {
+	public @Nullable Property getOrCreateProperty(@NotNull String key, int kind, @Nullable String defaultValue) {
+		return getOrCreateProperty(key, PropertyKind.values()[kind], defaultValue);
+	}
+
+	/**
+	 * Gets or creates a property.<br>
+	 * If the property key is already in the configuration, then it will be used.
+	 * Otherwise, {@code defaultValue} will be used.
+	 *
+	 * @param key          the key for which to get or create a property
+	 * @param kind         the category to look for the property in
+	 * @param defaultValue the value to use if the property doesn't already exist
+	 * @return the property associated with the given key, or null if the property couldn't be created.
+	 * @author Space Toad
+	 * @since 1.0.0
+	 */
+	public @Nullable Property getOrCreateProperty(@NotNull String key, @Nullable PropertyKind kind, @Nullable String defaultValue) {
 		TreeMap<String, Property> source = null;
 
-		switch (kind) {
-			case GENERAL:
-				source = generalProperties;
-				break;
-			case BLOCK:
-				source = blockProperties;
-				break;
-			case ITEM:
-				source = itemProperties;
-				break;
+		if (kind == null) {
+			source = generalProperties;
+		} else {
+			switch (kind) {
+				case GENERAL:
+					source = generalProperties;
+					break;
+				case BLOCK:
+					source = blockProperties;
+					break;
+				case ITEM:
+					source = itemProperties;
+					break;
+			}
 		}
 
 		if (source.containsKey(key)) {
@@ -345,19 +408,23 @@ public class Configuration {
 	public static class Property {
 		/**
 		 * The name of the configuration property.
+		 * @since 1.0.0
 		 */
 		public String name;
 		/**
 		 * The value associated with the configuration property.
+		 * @since 1.0.0
 		 */
 		public String value;
 		/**
 		 * The comment that describes the configuration property to the user.
+		 * @since 1.0.0
 		 */
 		public String comment;
 
 		/**
 		 * Default constructor.
+		 * @since 1.0.0
 		 */
 		public Property() {
 		}
