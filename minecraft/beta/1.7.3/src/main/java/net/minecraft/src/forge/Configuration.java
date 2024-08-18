@@ -14,6 +14,9 @@ import java.util.*;
 // TODO(halotroop2288): Convert this to GSON
 
 /**
+ * This class offers advanced configurations capabilities,
+ * allowing to provide various categories for configuration variables.
+ *
  * @author Space Toad
  * @since 1.0.0
  */
@@ -27,6 +30,8 @@ public class Configuration {
 	public TreeMap<String, Property> generalProperties = new TreeMap<>();
 
 	/**
+	 * Create a configuration for the file given.
+	 *
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -35,6 +40,14 @@ public class Configuration {
 	}
 
 	/**
+	 * Gets or create a block id property.<br>
+	 * If the block id property key is already in the configuration, then it will be used.
+	 * Otherwise, {@code defaultID} will be used, except if already taken,
+	 * in which case this will try to determine a free default id.
+	 *
+	 * @param key the key to get or create a property for
+	 * @param defaultID the id to try to use if the property doesn't already exist
+	 *
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
