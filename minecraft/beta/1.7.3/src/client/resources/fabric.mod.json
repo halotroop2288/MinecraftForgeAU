@@ -19,7 +19,9 @@
 	],
 	"custom": {
 		"loom:injected_interfaces": {
-			"net/minecraft/src/EffectRenderer": ["net/minecraftforge/injection/ForgeEffectRenderer"]
+			"net/minecraft/src/EffectRenderer": [
+				"net/minecraftforge/injection/ForgeEffectRenderer"
+			]
 		}
 	}
 }

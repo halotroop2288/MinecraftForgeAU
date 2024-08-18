@@ -10,6 +10,8 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.*;
 
 /**
+ * Common hooks for Minecraft mod development.
+ *
  * @author Space Toad
  * @since 1.0.0
  */
@@ -18,9 +20,17 @@ public class MinecraftForge {
 	private static final LinkedList<IBiomePopulator> biomePopulators = new LinkedList<>();
 	private static final LinkedList<IHarvestHandler> harvestHandlers = new LinkedList<>();
 
+	private MinecraftForge() {
+	}
+
 	/**
 	 * This is not supposed to be called outside of Minecraft internals.
 	 *
+	 * @param world the world to act on
+	 * @param x     the x position of the block the bucket user is aiming at
+	 * @param y     the y position of the block the bucket user is aiming at
+	 * @param z     the z position of the block the bucket user is aiming at
+	 * @return the stack to replace the bucket
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -33,6 +43,10 @@ public class MinecraftForge {
 	/**
 	 * This is not supposed to be called outside of Minecraft internals.
 	 *
+	 * @param world  the world to act on
+	 * @param biome  the biome at the given chunk coordinates
+	 * @param chunkX the x position of the chunk being generated
+	 * @param chunkZ the z position of the chunk being generated
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -46,6 +60,7 @@ public class MinecraftForge {
 	 *
 	 * @param tool  the tool used to harvest the block
 	 * @param block the block to be harvested
+	 * @return true if the block can be harvested in the given context
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -72,26 +87,29 @@ public class MinecraftForge {
 	/**
 	 * Registers a new custom bucket handler.
 	 *
+	 * @param handler the handler to register
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
-	public static void registerCustomBucketHandler(IBucketHandler bucketHandler) {
-		bucketHandlers.add(bucketHandler);
+	public static void registerCustomBucketHandler(IBucketHandler handler) {
+		bucketHandlers.add(handler);
 	}
 
 	/**
 	 * Registers a new biome contributor.
 	 *
+	 * @param populator the populator to register
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
-	public static void registerBiomePopulate(IBiomePopulator biomePopulator) {
-		biomePopulators.add(biomePopulator);
+	public static void registerBiomePopulate(IBiomePopulator populator) {
+		biomePopulators.add(populator);
 	}
 
 	/**
 	 * Registers a new harvest handler.
 	 *
+	 * @param handler the handler to register
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */

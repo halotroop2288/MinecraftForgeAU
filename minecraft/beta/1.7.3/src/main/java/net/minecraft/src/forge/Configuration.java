@@ -25,13 +25,23 @@ public class Configuration {
 
 	private final @NotNull File file;
 
-	public TreeMap<String, Property> blockProperties = new TreeMap<>();
-	public TreeMap<String, Property> itemProperties = new TreeMap<>();
+	/**
+	 * Properties with no specific category.
+	 */
 	public TreeMap<String, Property> generalProperties = new TreeMap<>();
+	/**
+	 * Properties in the Block category.
+	 */
+	public TreeMap<String, Property> blockProperties = new TreeMap<>();
+	/**
+	 * Properties in the Item category.
+	 */
+	public TreeMap<String, Property> itemProperties = new TreeMap<>();
 
 	/**
-	 * Create a configuration for the file given.
+	 * Creates a configuration for the file given.
 	 *
+	 * @param file the location to store the configuration
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -40,14 +50,14 @@ public class Configuration {
 	}
 
 	/**
-	 * Gets or create a block id property.<br>
+	 * Gets or creates a block id property.<br>
 	 * If the block id property key is already in the configuration, then it will be used.
 	 * Otherwise, {@code defaultID} will be used, except if already taken,
 	 * in which case this will try to determine a free default id.
 	 *
-	 * @param key the key to get or create a property for
+	 * @param key       the key for which to get or create a property
 	 * @param defaultID the id to try to use if the property doesn't already exist
-	 *
+	 * @return the property associated with the given key, or null if the property couldn't be created.
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -87,6 +97,13 @@ public class Configuration {
 	}
 
 	/**
+	 * The same as {@link #getOrCreateProperty(String, PropertyKind, String)}
+	 * but for {@link Integer#TYPE int} properties rather than {@link String} properties.
+	 *
+	 * @param key          the key for which to get or create a property
+	 * @param kind         the category to look for the property in
+	 * @param defaultValue the value to use if the property doesn't already exist
+	 * @return the property associated with the given key, or null if the property couldn't be created.
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -105,6 +122,13 @@ public class Configuration {
 	}
 
 	/**
+	 * The same as {@link #getOrCreateProperty(String, PropertyKind, String)}
+	 * but for {@link Boolean#TYPE boolean} properties rather than {@link String} properties.
+	 *
+	 * @param key          the key for which to get or create a property
+	 * @param kind         the category to look for the property in
+	 * @param defaultValue the value to use if the property doesn't already exist
+	 * @return the property associated with the given key, or null if the property couldn't be created.
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -120,6 +144,14 @@ public class Configuration {
 	}
 
 	/**
+	 * Gets or creates a property.<br>
+	 * If the property key is already in the configuration, then it will be used.
+	 * Otherwise, {@code defaultValue} will be used.
+	 *
+	 * @param key          the key for which to get or create a property
+	 * @param kind         the category to look for the property in
+	 * @param defaultValue the value to use if the property doesn't already exist
+	 * @return the property associated with the given key, or null if the property couldn't be created.
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -154,6 +186,8 @@ public class Configuration {
 	}
 
 	/**
+	 * Loads the configuration file from disk.
+	 *
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -240,6 +274,8 @@ public class Configuration {
 	}
 
 	/**
+	 * Saves the configuration file to disk.
+	 *
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
@@ -289,10 +325,6 @@ public class Configuration {
 		}
 	}
 
-	/**
-	 * @author Space Toad
-	 * @since 1.0.0
-	 */
 	private void writeProperties(BufferedWriter buffer, Collection<Property> props) throws IOException {
 		for (Property property : props) {
 			if (property.comment != null) {
@@ -305,20 +337,50 @@ public class Configuration {
 	}
 
 	/**
+	 * Holds data for each configuration entry.
+	 *
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
 	public static class Property {
+		/**
+		 * The name of the configuration property.
+		 */
 		public String name;
+		/**
+		 * The value associated with the configuration property.
+		 */
 		public String value;
+		/**
+		 * The comment that describes the configuration property to the user.
+		 */
 		public String comment;
+
+		/**
+		 * Default constructor.
+		 */
+		public Property() {
+		}
 	}
 
 	/**
+	 * Valid types of configuration properties.
+	 *
 	 * @author Space Toad
 	 * @since 1.0.0
 	 */
 	public enum PropertyKind {
-		GENERAL, BLOCK, ITEM
+		/**
+		 * No specific category.
+		 */
+		GENERAL,
+		/**
+		 * Property in the Block category.
+		 */
+		BLOCK,
+		/**
+		 * Property in the Item category.
+		 */
+		ITEM,
 	}
 }

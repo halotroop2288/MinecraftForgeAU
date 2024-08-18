@@ -16,12 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemBucket.class)
 public abstract class ItemBucketMixin {
 	/**
-	 * @param stack  the stack containing an empty bucket
-	 * @param world  the world
-	 * @param player the interacting player
-	 * @param x      block x position
-	 * @param y      block y position
-	 * @param z      block z position
 	 * @author halotroop2288
 	 * @reason Implements {@link IBucketHandler}
 	 */

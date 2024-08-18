@@ -21,7 +21,7 @@ public abstract class MinecraftMixin {
 	 * @reason implement {@link MinecraftForgeClient#onGameStart()}
 	 */
 	@Inject(method = "startGame", at = @At(value = "NEW",
-			target =  "(Ljava/io/File;Lnet/minecraft/client/Minecraft;)Lnet/minecraft/src/ThreadDownloadResources;"))
+		target = "(Ljava/io/File;Lnet/minecraft/client/Minecraft;)Lnet/minecraft/src/ThreadDownloadResources;"))
 	private void forge$startGame_ThreadDownloadResources(CallbackInfo ci) {
 		MinecraftForgeClient.onGameStart();
 	}
