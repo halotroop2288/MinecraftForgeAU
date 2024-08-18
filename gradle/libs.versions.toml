@@ -1,7 +1,7 @@
 [versions]
 unimined = "1.4.0"
 spotless = "7.0.0.BETA1"
-fabric = "0.16.0"
+fabric = "0.16.2"
 
 [plugins]
 unimined = { id = "xyz.wagyourtail.unimined", version.ref = "unimined" }
