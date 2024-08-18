@@ -23,7 +23,7 @@ public abstract class RenderItemMixin {
 	 * @reason implement {@link MinecraftForgeClient#overrideTexture(Object)}
 	 */
 	@Inject(method = "doRenderItem", require = 2,
-			at = @At(value = "CONSTANT", shift = At.Shift.AFTER, args = "stringValue=/terrain.png"))
+		at = @At(value = "CONSTANT", shift = At.Shift.AFTER, args = "stringValue=/terrain.png"))
 	private void forge$overrideTerrainTexture(EntityItem itemEntity, double x, double y, double z,
 											  float a, float b, CallbackInfo ci) {
 		MinecraftForgeClient.overrideTexture(Block.blocksList[itemEntity.item.itemID]);
@@ -36,7 +36,7 @@ public abstract class RenderItemMixin {
 	 * @reason implement {@link MinecraftForgeClient#overrideTexture(Object)}
 	 */
 	@Inject(method = "doRenderItem", require = 1,
-			at = @At(value = "CONSTANT", shift = At.Shift.AFTER, args = "stringValue=/gui/items.png"))
+		at = @At(value = "CONSTANT", shift = At.Shift.AFTER, args = "stringValue=/gui/items.png"))
 	private void forge$overrideItemsTexture(EntityItem itemEntity, double x, double y, double z,
 											float a, float b, CallbackInfo ci) {
 		MinecraftForgeClient.overrideTexture(itemEntity.item.getItem());
@@ -49,8 +49,8 @@ public abstract class RenderItemMixin {
 	 * @reason implement {@link MinecraftForgeClient#overrideTexture(Object)}
 	 */
 	@Inject(method = "drawItemIntoGui", require = 3, at = @At(
-			value = "INVOKE", shift = At.Shift.AFTER,
-			target = "Lnet/minecraft/src/RenderEngine;bindTexture(I)V"))
+		value = "INVOKE", shift = At.Shift.AFTER,
+		target = "Lnet/minecraft/src/RenderEngine;bindTexture(I)V"))
 	private void forge$overrideTerrainTexture(FontRenderer font, RenderEngine engine, int itemID, int a, int b,
 											  int c, int d, CallbackInfo ci) {
 		if (itemID < 256) MinecraftForgeClient.overrideTexture(Block.blocksList[itemID]);

@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * This interface is to be implemented by {@link Block} classes.
- * It will override standard algorithms controlling connection between two blocks by redstone
+ * It will override standard algorithms controlling connection between two blocks by redstone.
  *
  * @author Eloraam
  * @since 1.0.0
@@ -16,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 @FunctionalInterface
 public interface IConnectRedstone {
 	/**
+	 * Checks if a redstone connection can be made in the given direction from this block.
+	 *
 	 * @param world     the world to act on
 	 * @param x         the x position of this block
 	 * @param y         the y position of this block

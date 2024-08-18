@@ -8,6 +8,12 @@ subprojects {
 	apply("plugin" to "xyz.wagyourtail.unimined")
 	apply("plugin" to "com.diffplug.spotless")
 
+	group = "net.minecraftforge"
+	base.archivesName = "forge"
+	version = "${rootProject.properties["version"]}+${project.name}"
+
+	unimined.useGlobalCache = false
+
 	java {
 		sourceCompatibility = JavaVersion.VERSION_1_8
 		targetCompatibility = JavaVersion.VERSION_1_8
@@ -27,6 +33,11 @@ subprojects {
 		targetCompatibility = "8"
 	}
 
+	tasks.withType(Javadoc::class.java).configureEach {
+		isFailOnError = false
+		exclude("net/minecraftforge/mixin/**.java")
+	}
+
 	tasks.withType(ProcessResources::class.java).configureEach {
 		inputs.property ("version", project.version)
 
@@ -34,6 +45,4 @@ subprojects {
 			expand ("version" to project.version)
 		}
 	}
-
-	unimined.useGlobalCache = false
 }
