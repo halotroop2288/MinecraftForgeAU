@@ -11,6 +11,7 @@
 		"ItemBucketMixin",
 		"ItemMixin",
 		"ItemPickaxeMixin",
-		"ItemToolMixin"
+		"ItemToolMixin",
+		"WorldMixin"
 	]
 }
