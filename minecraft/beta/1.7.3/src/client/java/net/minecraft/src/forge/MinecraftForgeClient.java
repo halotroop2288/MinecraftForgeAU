@@ -12,6 +12,8 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
+ * Client hooks for Minecraft mod development.
+ *
  * @author Space Toad
  * @author Flowerchild
  * @since 1.0.0
