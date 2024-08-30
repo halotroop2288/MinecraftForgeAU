@@ -34,6 +34,10 @@ subprojects {
 	}
 
 	tasks.withType(Javadoc::class.java).configureEach {
+		(options as StandardJavadocDocletOptions)
+			.linkSource()
+			.docTitle("${rootProject.name} ${rootProject.properties["version"]} API")
+			.addFileOption("-add-stylesheet", File(rootProject.rootDir, "javadoc.css"))
 		isFailOnError = false
 		exclude("net/minecraftforge/mixin/**.java")
 		configurations.all {

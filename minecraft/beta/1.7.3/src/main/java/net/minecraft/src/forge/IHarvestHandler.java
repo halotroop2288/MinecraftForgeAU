@@ -15,7 +15,7 @@ import net.minecraft.src.*;
 public interface IHarvestHandler {
 	/**
 	 * <p>
-	 * This is typically used to add e.g. blocks only extracted by diamond pickaxe.
+	 * This is typically used to add (for example) blocks only extracted by a diamond pickaxe.
 	 * Other rules may activate the harvesting outside of this handler.
 	 * </p>
 	 *

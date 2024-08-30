@@ -33,7 +33,7 @@ public class Configuration {
 	 * The Block category.
 	 *
 	 * @since 1.0.1
-	 * @deprecated use {@link PropertyKind#GENERAL} instead
+	 * @deprecated use {@link PropertyKind#BLOCK} instead
 	 */
 	@Deprecated
 	public static final int BLOCK_PROPERTY = PropertyKind.BLOCK.ordinal();
@@ -41,7 +41,7 @@ public class Configuration {
 	 * The Item category.
 	 *
 	 * @since 1.0.1
-	 * @deprecated use {@link PropertyKind#GENERAL} instead
+	 * @deprecated use {@link PropertyKind#ITEM} instead
 	 */
 	@Deprecated
 	public static final int ITEM_PROPERTY = PropertyKind.ITEM.ordinal();

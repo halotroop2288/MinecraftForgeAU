@@ -22,7 +22,7 @@ public interface IOverrideReplace {
 	 * @param y       the y position of the block to replace
 	 * @param z       the z position of the block to replace
 	 * @param blockID the ID of the block intended to replace the one at the given position
-	 * @return whether this block is able to replace the block represented by the given ID
+	 * @return whether this block may be replaced by the block represented by the given ID
 	 * @author Eloraam
 	 * @since 1.0.0
 	 */
