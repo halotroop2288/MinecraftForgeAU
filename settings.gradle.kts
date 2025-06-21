@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+		mavenLocal()
         mavenCentral {
             name = "Maven Central"
         }
@@ -14,8 +15,6 @@ pluginManagement {
         }
     }
 }
-
-includeBuild("../unimined")
 
 rootProject.name = "Minecraft Forge"
 

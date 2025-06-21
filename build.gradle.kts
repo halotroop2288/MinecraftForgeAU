@@ -15,6 +15,7 @@ subprojects {
 	unimined.useGlobalCache = false
 
 	java {
+		toolchain.languageVersion = JavaLanguageVersion.of(21)
 		sourceCompatibility = JavaVersion.VERSION_1_8
 		targetCompatibility = JavaVersion.VERSION_1_8
 

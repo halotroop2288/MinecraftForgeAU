@@ -6,7 +6,7 @@ import xyz.wagyourtail.unimined.util.capitalized
 import xyz.wagyourtail.unimined.util.sourceSets
 import xyz.wagyourtail.unimined.util.withSourceSet
 
-val main: SourceSet by sourceSets.named("main")
+val main: SourceSet by sourceSets.main
 val client: SourceSet by sourceSets.creating
 val server: SourceSet by sourceSets.creating
 
@@ -58,15 +58,15 @@ unimined.minecraft(client, server) {
 		val jarTaskName = "jar".withSourceSet(sourceSet)
 		val defaultJarTask = tasks.named(jarTaskName).get()
 		tasks.named("remap" + jarTaskName.capitalized(), RemapJarTask::class.java).configure {
-			archiveClassifier = "${sourceSet.name}-official"
+			asJar.archiveClassifier = "${sourceSet.name}-official"
 		}
 		val baseName = "remapJarTo".withSourceSet(sourceSet)
 		remap(defaultJarTask, "${baseName}Babric") {
-			archiveClassifier = "${sourceSet.name}-babric"
+			asJar.archiveClassifier = "${sourceSet.name}-babric"
 			prodNamespace("babricIntermediary")
 		}
 		remap(defaultJarTask, "${baseName}Calamus") {
-			archiveClassifier = "${sourceSet.name}-calamus"
+			asJar.archiveClassifier = "${sourceSet.name}-calamus"
 			prodNamespace("calamus")
 		}
 	}

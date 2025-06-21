@@ -8,12 +8,15 @@
 		"forge.mixins.json"
 	],
 	"depends": {
+		"java": ">=8",
 		"minecraft": "~1.0.0-beta.7.3"
 	},
 	"authors": [
 		"halotroop2288"
 	],
 	"contributors": [
-		"SpaceToad"
+		"SpaceToad",
+		"FlowerChild",
+		"Eloraam"
 	]
 }
