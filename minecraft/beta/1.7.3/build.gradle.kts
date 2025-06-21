@@ -1,8 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import xyz.wagyourtail.unimined.api.minecraft.patch.fabric.LegacyFabricPatcher
-import xyz.wagyourtail.unimined.api.minecraft.task.RemapJarTask
-import xyz.wagyourtail.unimined.util.capitalized
 import xyz.wagyourtail.unimined.util.sourceSets
 import xyz.wagyourtail.unimined.util.withSourceSet
 
@@ -17,7 +15,7 @@ val commonAW = main.resources.find {
 val fabricConfig: LegacyFabricPatcher.() -> Unit = {
 	loader(libs.versions.fabric.get())
 	customIntermediaries = true
-	prodNamespace("official")
+	prodNamespace("babricIntermediary")
 }
 
 unimined.minecraft {
@@ -57,16 +55,17 @@ unimined.minecraft(client, server) {
 	project.afterEvaluate {
 		val jarTaskName = "jar".withSourceSet(sourceSet)
 		val defaultJarTask = tasks.named(jarTaskName).get()
-		tasks.named("remap" + jarTaskName.capitalized(), RemapJarTask::class.java).configure {
-			archiveClassifier = "${sourceSet.name}-official"
-		}
 		val baseName = "remapJarTo".withSourceSet(sourceSet)
+		remap(defaultJarTask, "${baseName}Official") {
+			asJar.archiveClassifier = "${sourceSet.name}-official"
+			prodNamespace("official")
+		}
 		remap(defaultJarTask, "${baseName}Babric") {
-			archiveClassifier = "${sourceSet.name}-babric"
+			asJar.archiveClassifier = "${sourceSet.name}-babric"
 			prodNamespace("babricIntermediary")
 		}
 		remap(defaultJarTask, "${baseName}Calamus") {
-			archiveClassifier = "${sourceSet.name}-calamus"
+			asJar.archiveClassifier = "${sourceSet.name}-calamus"
 			prodNamespace("calamus")
 		}
 	}
