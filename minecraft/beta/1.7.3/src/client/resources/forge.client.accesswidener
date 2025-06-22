@@ -1,3 +1,21 @@
 accessWidener v2 named
 accessible field net/minecraft/client/Minecraft theMinecraft Lnet/minecraft/client/Minecraft;
 accessible field net/minecraft/src/RenderBlocks overrideBlockTexture I
+# Tessellator
+extendable class net/minecraft/src/Tessellator
+accessible field net/minecraft/src/Tessellator convertQuadsToTriangles Z
+accessible field net/minecraft/src/Tessellator rawBuffer [I
+accessible field net/minecraft/src/Tessellator vertexCount I
+accessible field net/minecraft/src/Tessellator hasColor Z
+accessible field net/minecraft/src/Tessellator hasTexture Z
+accessible field net/minecraft/src/Tessellator hasNormals Z
+accessible field net/minecraft/src/Tessellator rawBufferIndex I
+accessible field net/minecraft/src/Tessellator drawMode I
+accessible field net/minecraft/src/Tessellator normal I
+accessible field net/minecraft/src/Tessellator isDrawing Z
+accessible field net/minecraft/src/Tessellator vboIndex I
+accessible field net/minecraft/src/Tessellator vboCount I
+accessible method net/minecraft/src/Tessellator <init> (I)V
+accessible method net/minecraft/src/Tessellator draw ()V
+accessible method net/minecraft/src/Tessellator reset ()V
+accessible method net/minecraft/src/Tessellator addVertex (DDD)V
