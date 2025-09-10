@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import xyz.wagyourtail.unimined.api.minecraft.patch.fabric.LegacyFabricPatcher
-import xyz.wagyourtail.unimined.api.minecraft.task.RemapJarTask
-import xyz.wagyourtail.unimined.util.capitalized
 import xyz.wagyourtail.unimined.util.sourceSets
 import xyz.wagyourtail.unimined.util.withSourceSet
 
@@ -10,74 +7,66 @@ val main: SourceSet by sourceSets.main
 val client: SourceSet by sourceSets.creating
 val server: SourceSet by sourceSets.creating
 
-val commonAW = main.resources.find {
-	it.name.equals("forge.common.accesswidener")
-}!!
-
-val fabricConfig: LegacyFabricPatcher.() -> Unit = {
-	loader(libs.versions.fabric.get())
-	customIntermediaries = true
-	prodNamespace("official")
-}
+val commonAW = main.resources.first { it.name.equals("forge.common.accesswidener") }
 
 unimined.minecraft {
-	version("b1.7.3")
-	side("server")
+	version("${project.properties["minecraft_version"]}")
 	mappings {
+		ornitheGenVersion = 2
 		calamus()
 		babricIntermediary()
-		retroMCP("b1.7")
+		feather("${project.properties["mappings_version"]}")
 	}
 	ornitheFabric {
-		fabricConfig.invoke(this)
+		loader(libs.versions.fabric.get())
+		customIntermediaries = true
+		prodNamespace("calamus")
 		accessWidener(commonAW)
 	}
-	runs.off = true
+
+	project.afterEvaluate {
+		val defaultJarTask = tasks.jar.get()
+		defaultJarTask.archiveClassifier = "dev"
+		val buildTask by tasks.build
+		buildTask.dependsOn(
+			remap(defaultJarTask, "calamusJar") {
+				asJar.archiveClassifier = "calamusG2"
+				prodNamespace("calamus")
+			},
+			remap(defaultJarTask, "babricJar") {
+			asJar.archiveClassifier = "babric"
+			prodNamespace("babricIntermediary")
+		})
+	}
+
 	defaultRemapJar = false
 }
 
 unimined.minecraft(client, server) {
-	combineWith(main)
+	version("${project.properties["minecraft_version"]}")
 	side(sourceSet.name)
-	ornitheFabric {
-		fabricConfig.invoke(this@ornitheFabric)
-		accessWidener(
-			mergeAws(
-				File(sourceSet.output.resourcesDir, "forge.accesswidener"),
-				listOf(
-					commonAW, sourceSet.resources.find {
-						it.name.equals("forge.${sourceSet.name}.accesswidener")
-					}!!
-				)
-			)
-		)
+
+	mappings {
+		ornitheGenVersion = 2
+		calamus()
+		feather(4)
 	}
-	runs.off = false
-	defaultRemapJar = true
-	project.afterEvaluate {
-		val jarTaskName = "jar".withSourceSet(sourceSet)
-		val defaultJarTask = tasks.named(jarTaskName).get()
-		tasks.named("remap" + jarTaskName.capitalized(), RemapJarTask::class.java).configure {
-			asJar.archiveClassifier = "${sourceSet.name}-official"
-		}
-		val baseName = "remapJarTo".withSourceSet(sourceSet)
-		remap(defaultJarTask, "${baseName}Babric") {
-			asJar.archiveClassifier = "${sourceSet.name}-babric"
-			prodNamespace("babricIntermediary")
-		}
-		remap(defaultJarTask, "${baseName}Calamus") {
-			asJar.archiveClassifier = "${sourceSet.name}-calamus"
-			prodNamespace("calamus")
-		}
+
+	jarMod()
+
+	dependencies {
+		val jarModConfiguration = configurations.named("jarMod".withSourceSet(sourceSet))
+		if (sourceSet == client) jarModConfiguration("risugami:modloader:b1.7.3")
+		jarModConfiguration("modloadermp:modloadermp:b1.7.3:${sourceSet.name}")
+		jarModConfiguration("net.minecraftforge:forge:b1.7.3-1.0.7:${sourceSet.name}@zip")
 	}
+
+	defaultRemapJar = false
+	defaultRemapSourcesJar = false
 }
 
-tasks.build.configure {
-	for (set in arrayOf(client, server)) {
-		val baseName = "remapJarTo".withSourceSet(set)
-		dependsOn(
-			"${baseName}Babric",
-			"${baseName}Calamus"
-		)
+configurations.all {
+	resolutionStrategy.eachDependency {
+		if (requested.group.startsWith("org.lwjgl")) useVersion("2.9.4+legacyfabric.8")
 	}
 }

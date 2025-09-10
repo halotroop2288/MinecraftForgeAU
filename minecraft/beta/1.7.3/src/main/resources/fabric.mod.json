@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "forge",
+	"name": "Minecraft Forge",
+	"version": "${version}",
+	"environment": "*",
+	"mixins": [
+		"forge.mixins.json"
+	],
+	"authors": [
+		"halotroop2288"
+	],
+	"contributors": [
+		"SpaceToad",
+		"FlowerChild",
+		"Eloraam"
+	],
+	"depends": {
+		"java": ">=8",
+		"minecraft": "~1.0.0-beta.7.3"
+	},
+	"custom": {
+		"loom:injected_interfaces": {
+			"net/minecraft/src/EffectRenderer": [
+				"net/minecraftforge/injection/ForgeEffectRenderer"
+			]
+		}
+	}
+}

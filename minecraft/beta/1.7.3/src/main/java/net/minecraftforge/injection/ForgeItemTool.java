@@ -3,11 +3,12 @@
  */
 package net.minecraftforge.injection;
 
-import net.minecraft.src.*;
+import net.minecraft.block.Block;
+import net.minecraft.item.ToolItem;
 import org.jetbrains.annotations.*;
 
 /**
- * Adds public methods to {@link ItemTool} via Fabric Interface Injectors.
+ * Adds public methods to {@link ToolItem} via Fabric Interface Injectors.
  *
  * @author halotroop2288
  */

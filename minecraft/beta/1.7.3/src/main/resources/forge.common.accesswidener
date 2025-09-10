@@ -1,1 +1,25 @@
 accessWidener v2 named
+# Client
+accessible field net/minecraft/client/Minecraft INSTANCE Lnet/minecraft/client/Minecraft;
+accessible field net/minecraft/client/render/block/BlockRenderer forcedSprite I
+accessible method net/minecraft/client/render/entity/EntityRenderer bindTexture (Ljava/lang/String;)V
+extendable class net/minecraft/client/render/vertex/Tesselator
+accessible field net/minecraft/client/render/vertex/Tesselator TRIANGLE_MODE Z
+accessible field net/minecraft/client/render/vertex/Tesselator vertexBuffer [I
+accessible field net/minecraft/client/render/vertex/Tesselator vertexCount I
+accessible field net/minecraft/client/render/vertex/Tesselator colored Z
+accessible field net/minecraft/client/render/vertex/Tesselator textured Z
+accessible field net/minecraft/client/render/vertex/Tesselator hasNormals Z
+accessible field net/minecraft/client/render/vertex/Tesselator index I
+accessible field net/minecraft/client/render/vertex/Tesselator drawMode I
+accessible field net/minecraft/client/render/vertex/Tesselator normals I
+accessible field net/minecraft/client/render/vertex/Tesselator tesselating Z
+accessible field net/minecraft/client/render/vertex/Tesselator vbo I
+accessible field net/minecraft/client/render/vertex/Tesselator vboCount I
+accessible method net/minecraft/client/render/vertex/Tesselator <init> (I)V
+accessible method net/minecraft/client/render/vertex/Tesselator end ()V
+accessible method net/minecraft/client/render/vertex/Tesselator vertex (DDD)V
+accessible method net/minecraft/client/render/vertex/Tesselator clear ()V
+
+# Server
+transitive-accessible class net/minecraft/server/ChunkMap$ChunkHolder

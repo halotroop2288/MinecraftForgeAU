@@ -4,6 +4,10 @@ plugins {
 	alias(libs.plugins.spotless)
 }
 
+tasks.jar {
+	enabled = false
+}
+
 subprojects {
 	apply("plugin" to "xyz.wagyourtail.unimined")
 	apply("plugin" to "com.diffplug.spotless")

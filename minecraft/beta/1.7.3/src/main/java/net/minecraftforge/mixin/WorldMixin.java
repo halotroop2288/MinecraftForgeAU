@@ -7,8 +7,10 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.minecraft.src.*;
-import net.minecraft.src.forge.IBlockSecondaryProperties;
+import net.minecraft.block.Block;
+import forge.IBlockSecondaryProperties;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -16,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(World.class)
 public abstract class WorldMixin {
 	@Shadow
-	public abstract int getBlockId(int x, int y, int z);
+	public abstract int getBlock(int x, int y, int z);
 
 	/**
 	 * @param x        the x position of the block
@@ -27,11 +29,11 @@ public abstract class WorldMixin {
 	 * @author halotroop2288
 	 * @reason implement {@link IBlockSecondaryProperties#isAirBlock(World, int, int, int)}
 	 */
-	@WrapMethod(method = "isAirBlock")
+	@WrapMethod(method = "isAir")
 	private boolean forge$isAirBlock(int x, int y, int z, Operation<Boolean> original) {
-		int blockID = getBlockId(x, y, z);
+		int blockID = getBlock(x, y, z);
 		if (blockID == 0) return true;
-		Block block = Block.blocksList[blockID];
+		Block block = Block.BY_ID[blockID];
 
 		if (block instanceof IBlockSecondaryProperties) {
 			return ((IBlockSecondaryProperties) block).isAirBlock((World) (Object) this, x, y, z);
@@ -48,21 +50,21 @@ public abstract class WorldMixin {
 	 * @author halotroop2288
 	 * @reason implement {@link IBlockSecondaryProperties#isBlockBurning(World, int, int, int)}
 	 */
-	@Inject(method = "isBoundingBoxBurning", cancellable = true, at = @At(value = "RETURN", ordinal = 0))
-	private void forge$isBoundingBoxBurning_return_0(AxisAlignedBB ignored, CallbackInfoReturnable<Boolean> cir,
+	@Inject(method = "containsFireSource", cancellable = true, at = @At(value = "RETURN", ordinal = 0))
+	private void forge$isBoundingBoxBurning_return_0(Box ignored, CallbackInfoReturnable<Boolean> cir,
 													 @Local(ordinal = 6) int x,
 													 @Local(ordinal = 7) int y,
 													 @Local(ordinal = 8) int z,
 													 @Local(ordinal = 9) int blockID) {
 		if (cir.getReturnValue()) return;
-		Block block = Block.blocksList[blockID];
+		Block block = Block.BY_ID[blockID];
 		if (block instanceof IBlockSecondaryProperties) {
 			IBlockSecondaryProperties bsp = (IBlockSecondaryProperties) block;
 			cir.setReturnValue(bsp.isBlockBurning((World) (Object) this, x, y, z));
 		}
 	}
 
-	@Inject(method = "isBlockNormalCube", cancellable = true, at = @At(value = "RETURN", ordinal = 1))
+	@Inject(method = "isSolidBlock", cancellable = true, at = @At(value = "RETURN", ordinal = 1))
 	private void forge$isBlockNormalCube(int x, int y, int z, CallbackInfoReturnable<Boolean> cir, @Local Block block) {
 		if (block instanceof IBlockSecondaryProperties) {
 			IBlockSecondaryProperties bsp = (IBlockSecondaryProperties) block;
@@ -81,7 +83,7 @@ public abstract class WorldMixin {
 	 * @author halotroop2288
 	 * @reason implement {@link IBlockSecondaryProperties#isBlockReplaceable(World, int, int, int)}
 	 */
-	@Inject(method = "canBlockBePlacedAt", at = @At(value = "RETURN", ordinal = 1))
+	@Inject(method = "canPlace", at = @At(value = "RETURN", ordinal = 1))
 	private void forge$canBePlacedAt_return_1(int blockID, int x, int y, int z, boolean ignoreBB, int side,
 											  CallbackInfoReturnable<Boolean> cir,
 											  @Local(ordinal = 0) LocalRef<Block> block) {

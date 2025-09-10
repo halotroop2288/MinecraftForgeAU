@@ -3,15 +3,29 @@
 	"compatibilityLevel": "JAVA_8",
 	"required": true,
 	"mixins": [
-		"BlockRedstoneWireMixin",
-		"ChunkMixin",
-		"ChunkProviderGenerateMixin",
-		"EntityPlayerMixin",
+		"BucketItemMixin",
 		"ExplosionMixin",
-		"ItemBucketMixin",
 		"ItemMixin",
-		"ItemPickaxeMixin",
-		"ItemToolMixin",
+		"OverworldChunkGeneratorMixin",
+		"PickaxeItemMixin",
+		"PlayerEntityMixin",
+		"RedstoneWireBlockMixin",
+		"ToolItemMixin",
+		"WorldChunkMixin",
 		"WorldMixin"
+	],
+	"client": [
+		"client.BlockRendererMixin",
+		"client.ClientPlayerInteractionManagerMixin",
+		"client.ItemInHandRendererMixin",
+		"client.ItemRendererMixin",
+		"client.MinecraftMixin",
+		"client.ParticleManagerMixin",
+		"client.RenderChunkMixin",
+		"client.TessellatorMixin"
+	],
+	"server": [
+		"server.ChunkHolderMixin",
+		"server.MinecraftServerMixin"
 	]
 }
