@@ -1,27 +1,33 @@
 @file:Suppress("UnstableApiUsage")
 
+import xyz.wagyourtail.unimined.api.mapping.MappingsConfig
 import xyz.wagyourtail.unimined.util.sourceSets
-import xyz.wagyourtail.unimined.util.withSourceSet
 
 val main: SourceSet by sourceSets.main
-val client: SourceSet by sourceSets.creating
-val server: SourceSet by sourceSets.creating
 
-val commonAW = main.resources.first { it.name.equals("modloader.accesswidener") }
+val mappingsConfigAction: MappingsConfig<*>.() -> Unit = {
+	ornitheGenVersion = 2
+	calamus()
+	babricIntermediary()
+	feather("${project.properties["mappings_version"]}")
+	stubs(namespaces = arrayOf("official", "calamus")) {
+		c("BaseMod", "risugami/modloader/BaseMod")
+		c("EntityRendererProxy", "risugami/modloader/EntityRendererProxy")
+		c("ModLoader", "risugami/modloader/ModLoader")
+		c("MLProp", "risugami/modloader/MLProp")
+		c("ModTextureAnimation", "risugami/modloader/ModTextureAnimation")
+		c("ModTextureStatic", "risugami/modloader/ModTextureStatic")
+	}
+}
 
 unimined.minecraft {
 	version("${project.properties["minecraft_version"]}")
-	mappings {
-		ornitheGenVersion = 2
-		calamus()
-		babricIntermediary()
-		feather("${project.properties["mappings_version"]}")
-	}
+	mappings(mappingsConfigAction)
 	ornitheFabric {
 		loader(libs.versions.fabric.get())
 		customIntermediaries = true
 		prodNamespace("calamus")
-		accessWidener(commonAW)
+		accessWidener(main.resources.first { it.name.equals("modloader.accesswidener") })
 	}
 
 	project.afterEvaluate {
@@ -34,9 +40,10 @@ unimined.minecraft {
 				prodNamespace("calamus")
 			},
 			remap(defaultJarTask, "babricJar") {
-			asJar.archiveClassifier = "babric"
-			prodNamespace("babricIntermediary")
-		})
+				asJar.archiveClassifier = "babric"
+				prodNamespace("babricIntermediary")
+			}
+		)
 	}
 
 	dependencies {
@@ -49,34 +56,17 @@ unimined.minecraft {
 	defaultRemapJar = false
 }
 
-unimined.minecraft(client, server) {
-	version("${project.properties["minecraft_version"]}")
-	side(sourceSet.name)
-
-	mappings {
-		ornitheGenVersion = 2
-		calamus()
-		feather(4)
-		stubs("official", "calamus") {
-			c("BaseMod", "modloader/BaseMod")
-			c("EntityRendererProxy", "modloader/EntityRendererProxy")
-			c("MLProp", "modloader/MLProp")
-			c("ModLoader", "modloader/ModLoader")
-			c("ModTextureAnimation", "modloader/ModTextureAnimation")
-			c("ModTextureStatic", "modloader/ModTextureStatic")
-		}
-	}
-
+unimined.minecraft(sourceSets.test.get()) {
+	version("b1.7.3")
+	side("client")
+	mappings(mappingsConfigAction)
 	jarMod()
 
-	dependencies {
-		val jarModConfiguration = configurations.named("jarMod".withSourceSet(sourceSet))
-		if (sourceSet == client) jarModConfiguration("risugami:modloader:b1.7.3")
-//		jarModConfiguration("modloadermp:modloadermp:b1.7.3:${sourceSet.name}")
-	}
-
 	defaultRemapJar = false
-	defaultRemapSourcesJar = false
+
+	dependencies {
+		"testJarMod"("risugami:modloader:b1.7.3")
+	}
 }
 
 configurations.all {

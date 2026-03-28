@@ -1,7 +1,9 @@
+import xyz.wagyourtail.unimined.api.minecraft.task.RemapJarTask
+
 plugins {
-	`kotlin-dsl`
 	alias(libs.plugins.unimined)
 	alias(libs.plugins.spotless)
+	`maven-publish`
 }
 
 tasks.jar {
@@ -11,14 +13,17 @@ tasks.jar {
 subprojects {
 	apply("plugin" to "xyz.wagyourtail.unimined")
 	apply("plugin" to "com.diffplug.spotless")
+	apply("plugin" to "maven-publish")
 
 	group = "risugami"
-	base.archivesName = "modloader"
+	base.archivesName = "ModLoader"
 	version = "${rootProject.properties["version"]}+${project.name}"
 
 	unimined.useGlobalCache = false
 
 	repositories {
+		unimined.wagYourMaven("releases")
+		unimined.modrinthMaven()
 		unimined.jitpack()
 	}
 
@@ -63,6 +68,23 @@ subprojects {
 
 		filesMatching("*.mod.json") {
 			expand("version" to project.version)
+		}
+	}
+
+	publishing {
+		publications {
+			create<MavenPublication>("maven") {
+				from(components["java"])
+				groupId = "${project.group}"
+				artifactId = project.base.archivesName.get()
+				version = "${project.version}"
+
+				tasks.withType(RemapJarTask::class.java).forEach {
+					artifact(it) {
+						builtBy(it)
+					}
+				}
+			}
 		}
 	}
 }

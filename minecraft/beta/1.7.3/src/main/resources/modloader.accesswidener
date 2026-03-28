@@ -1,0 +1,32 @@
+accessWidener v2 named
+
+# vanillaBiomes
+accessible field net/minecraft/world/biome/Biome BIOME_MAP [Lnet/minecraft/world/biome/Biome;
+
+# getMinecraftInstance
+accessible field net/minecraft/client/Minecraft INSTANCE Lnet/minecraft/client/Minecraft;
+# addArmor
+accessible field net/minecraft/client/render/entity/PlayerRenderer ARMOR_VARIANTS [Ljava/lang/String;
+mutable field net/minecraft/client/render/entity/PlayerRenderer ARMOR_VARIANTS [Ljava/lang/String;
+# addRecipe
+accessible method net/minecraft/crafting/CraftingManager registerShaped (Lnet/minecraft/item/ItemStack;[Ljava/lang/Object;)V
+# addShapelessRecipe
+accessible method net/minecraft/crafting/CraftingManager registerShapeless (Lnet/minecraft/item/ItemStack;[Ljava/lang/Object;)V
+# loadImage
+accessible field net/minecraft/client/render/texture/TextureManager texturePacks Lnet/minecraft/client/resource/pack/TexturePacks;
+# registerTileEntity
+accessible field net/minecraft/client/render/block/entity/BlockEntityRenderDispatcher renderers Ljava/util/Map;
+accessible method net/minecraft/block/entity/BlockEntity register (Ljava/lang/Class;Ljava/lang/String;)V
+# registerEntityID
+accessible method net/minecraft/entity/Entities register (Ljava/lang/Class;Ljava/lang/String;I)V
+# addSpawn / removeSpawn
+accessible field net/minecraft/entity/Entities KEY_TO_TYPE Ljava/util/Map;
+# addAchievementDesc
+accessible field net/minecraft/stat/Stat key Ljava/lang/String;
+mutable field net/minecraft/stat/Stat key Ljava/lang/String;
+accessible field net/minecraft/stat/achievement/AchievementStat description Ljava/lang/String;
+mutable field net/minecraft/stat/achievement/AchievementStat description Ljava/lang/String;
+# initStats
+accessible field net/minecraft/stat/Stats BY_ID Ljava/util/Map;
+# addTranslation
+accessible field net/minecraft/locale/Language translations Ljava/util/Properties;

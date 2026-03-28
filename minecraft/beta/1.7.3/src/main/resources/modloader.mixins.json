@@ -1,0 +1,20 @@
+{
+	"package": "risugami.modloader.mixin",
+	"mixinextras": {
+		"minVersion": "0.5.3"
+	},
+	"minVersion": "0.8.7",
+	"mixins": [
+		"ChunkCacheMixin",
+		"CraftingResultSlotMixin",
+		"DispenserBlockMixin",
+		"FurnaceBlockEntityMixin",
+		"FurnaceResultSlotMixin",
+		"ItemEntityMixin"
+	],
+	"client": [
+		"BlockRendererMixin",
+		"EntityRenderDispatcherMixin",
+		"GameRendererMixin"
+	]
+}
